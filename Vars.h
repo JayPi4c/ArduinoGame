@@ -10,6 +10,11 @@ enum DIRECTION {
   NORTH, EAST, WEST, SOUTH
 };
 
+struct stats {
+  int  wins;
+  int looses;
+};
+
 #define PlayerAppearance "O"
 #define ObstacleAppearance "X"
 #define GoalAppearance "~"

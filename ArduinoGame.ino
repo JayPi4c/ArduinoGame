@@ -14,27 +14,23 @@ Obstacle obstacles[4];
 
 boolean changed = false;
 
-boolean won = false;
+boolean won;
 
 int coolDown = 250;
-int lastCoolDown = 0;
+unsigned long lastCoolDown = 0;
+struct stats stat = {0, 0};
 
 void setup() {
   // Notwendig, damit nicht bei jedem Start der gleiche Seed genutzt wird!
   randomSeed(analogRead(0));
 
-  
+
   Serial.begin(9600);
 
   lcd.init();
   lcd.backlight();
 
-  p.drawObject(lcd, PlayerAppearance);
-  g.drawObject(lcd, GoalAppearance);
-  for (int i = 0; i < (sizeof(obstacles) / sizeof(*obstacles)); i++) {
-    obstacles[i] = Obstacle(19, i);
-    obstacles[i].drawObject(lcd, ObstacleAppearance);
-  }
+  reset();
 }
 
 void loop() {
@@ -55,7 +51,7 @@ void loop() {
       p.updateLocation(NORTH);
       changed = true;
     }
-    if (JSXValue > 1024 - 100) {
+    else if (JSXValue > 1024 - 100) {
       p.updateLocation(EAST);
       changed = true;
     } else if (JSXValue < 100) {
@@ -76,16 +72,43 @@ void loop() {
   if (g.intersects(p)) {
     lcd.clear();
     lcd.print("You've won!");
+    stat.wins++;
     won = true;
   }
   if (!p.isAlive()) {
     lcd.clear();
     lcd.print("GAME OVER!");
+    stat.looses++;
   }
-  while (!p.isAlive() || won) {
-    //Das Spiel ist vorbei. Es muss resettet werden!
+  //  while (!p.isAlive() || won) {
+  //    //Das Spiel ist vorbei. Es muss resettet werden!
+  //  }
+
+  if (!p.isAlive()  || won) {
+    lcd.setCursor(0, 1);
+    String msg = "wins: ";
+    msg += stat.wins;
+    msg += "| looses: ";
+    msg += stat.looses;
+    lcd.print(msg);
+    delay(3000);
+    reset();
   }
 
+}
+
+
+void reset() {
+  lcd.clear();
+  won = false; 
+  p = Player();
+  g = Goal();
+  p.drawObject(lcd, PlayerAppearance);
+  g.drawObject(lcd, GoalAppearance);
+  for (int i = 0; i < (sizeof(obstacles) / sizeof(*obstacles)); i++) {
+    obstacles[i] = Obstacle(19, i);
+    obstacles[i].drawObject(lcd, ObstacleAppearance);
+  }
 }
 
 

@@ -18,6 +18,7 @@ class Player: public Object {
     void updateLocation(DIRECTION dir);
 
 
+
   private:
     boolean alive;
 };
