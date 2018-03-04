@@ -11,11 +11,10 @@ class Player: public Object {
     Player(void);
     ~Player(void);
     boolean isAlive(void);
-    boolean reachedGoal(void);
+//    boolean reachedGoal(void);
 
     void setDead(boolean state);
 
-    void drawPlayer(LiquidCrystal_I2C lcd);
     void updateLocation(DIRECTION dir);
 
 

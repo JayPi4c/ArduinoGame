@@ -7,7 +7,12 @@
 
 
 enum DIRECTION {
-  NORTH, EAST, WEST, SOUTH};
-  
-  
+  NORTH, EAST, WEST, SOUTH
+};
+
+#define PlayerAppearance "O"
+#define ObstacleAppearance "X"
+#define GoalAppearance "~"
+
+
 #endif

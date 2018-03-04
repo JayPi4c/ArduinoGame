@@ -15,7 +15,7 @@ class Object {
     int getY(void);
     void updateLocation(DIRECTION dir);
 
-    void drawObject(LiquidCrystal_I2C lcd);
+    void drawObject(LiquidCrystal_I2C lcd, String appearance);
 
 
   protected:

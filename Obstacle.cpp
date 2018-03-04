@@ -15,9 +15,9 @@ void Obstacle::move(LiquidCrystal_I2C lcd) {
   int n = random(0, 100);
 
   float f = n / float(100);
-  if (f < 0.2) {
+  if (f < 0.5) {
     updateLocation(WEST);
-    drawObject(lcd);
+    drawObject(lcd, ObstacleAppearance);
   }
 }
 

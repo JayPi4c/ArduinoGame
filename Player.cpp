@@ -11,9 +11,9 @@ void Player::setDead(boolean state) {
   alive = !state;
 }
 
-boolean Player::reachedGoal() {
-  return getX() == 19;
-}
+//boolean Player::reachedGoal() {
+//  return getX() == 19;
+//}
 
 
 
@@ -21,13 +21,6 @@ boolean Player::isAlive(void) {
   return alive;
 }
 
-
-void Player::drawPlayer(LiquidCrystal_I2C lcd) {
-  lcd.setCursor(px, py);
-  lcd.print(" ");
-  lcd.setCursor(x, y);
-  lcd.print("O");
-}
 
 void Player::updateLocation(DIRECTION dir) {
   px = x;

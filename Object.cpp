@@ -60,11 +60,11 @@ void Object::updateLocation(DIRECTION dir) {
 
 
 
-void Object::drawObject(LiquidCrystal_I2C lcd) {
+void Object::drawObject(LiquidCrystal_I2C lcd, String appearance) {
   lcd.setCursor(px, py);
   lcd.print(" ");
   lcd.setCursor(x, y);
-  lcd.print("X");
+  lcd.print(appearance);
 }
 
 
