@@ -22,6 +22,8 @@ int lastCoolDown = 0;
 void setup() {
   // Notwendig, damit nicht bei jedem Start der gleiche Seed genutzt wird!
   randomSeed(analogRead(0));
+
+  
   Serial.begin(9600);
 
   lcd.init();
@@ -43,29 +45,29 @@ void loop() {
     }
   }
 
-if(millis() - lastCoolDown > coolDown){
-  int JSYValue = analogRead(joyStickY);
-  int JSXValue = analogRead(joyStickX);
-  if (JSYValue > 1024 - 100) {
-    p.updateLocation(SOUTH);
-    changed = true;
-  } else if (JSYValue < 100) {
-    p.updateLocation(NORTH);
-    changed = true;
+  if (millis() - lastCoolDown > coolDown) {
+    int JSYValue = analogRead(joyStickY);
+    int JSXValue = analogRead(joyStickX);
+    if (JSYValue > 1024 - 100) {
+      p.updateLocation(SOUTH);
+      changed = true;
+    } else if (JSYValue < 100) {
+      p.updateLocation(NORTH);
+      changed = true;
+    }
+    if (JSXValue > 1024 - 100) {
+      p.updateLocation(EAST);
+      changed = true;
+    } else if (JSXValue < 100) {
+      p.updateLocation(WEST);
+      changed = true;
+    }
+    if (changed) {
+      p.drawObject(lcd, PlayerAppearance);
+      changed = false;
+      lastCoolDown = millis();
+    }
   }
-  if (JSXValue > 1024 - 100) {
-    p.updateLocation(EAST);
-    changed = true;
-  } else if (JSXValue < 100) {
-    p.updateLocation(WEST);
-    changed = true;
-  }
-  if (changed) {
-    p.drawObject(lcd, PlayerAppearance);
-    changed = false;
-    lastCoolDown = millis();
-  }
-}
   for (int i = 0; i < (sizeof(obstacles) / sizeof(*obstacles)); i++) {
     if (obstacles[i].intersects(p)) {
       p.setDead(true);

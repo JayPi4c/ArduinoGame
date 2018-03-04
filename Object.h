@@ -7,7 +7,7 @@
 
 class Object {
   public:
-  Object();
+    Object();
     Object(int x_, int y_);  //Konstruktor
     ~Object(void); //Destruktor
 
